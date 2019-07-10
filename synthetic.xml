@@ -3,27 +3,19 @@
 <synthetic xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd" xmlns="http://www.xebialabs.com/deployit/synthetic" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
   <!-- Terraform via CLI -->
-  <type type="terraform.Package" extends="generic.ExecutedScriptWithDerivedArtifact" deployable-type="terraform.ConfigurationPackage" container-type="terraform.TfhClient" description="A package that deploys .tf files">
+  <type type="terraform.Package" extends="generic.ExecutedScriptWithDerivedArtifact" deployable-type="terraform.ConfigurationPackage" container-type="terraform.Tfe" description="A package that deploys .tf files">
     <generate-deployable type="terraform.ConfigurationPackage" extends="file.Folder" description="Must be a zip file. This file can contain multiple main.tf, variables.tf and/or outputs.tf file(s)."/>
     <property name="createScript" default="terraform/ApplyConfiguration" hidden="true" />
     <property name="createVerb" kind="string" default="Apply Configuration" hidden="true"/>
   </type>
 
-  <type type="terraform.TfhClient" extends="generic.Container" description="A Terraform Enterprise CLI host, organization, workspace and credential.">
-    <property name="org" required="true" category="Terraform Enterprise" description="Organization name" default="tforg"/>
-    <property name="workspace" required="true" category="Terraform Enterprise" description="Workspace name" default="workspacename"/>
-    <property name="serverAddress" required="true" category="Terraform Enterprise" description="Server address" default="app.terraform.io"/>
-    <property name="accessToken" required="false" category="Terraform Enterprise" kind="string" password="true" description="Access token (optional if credentials are pre-configured on host)" default="Hl3J7xbr5t3uig.atlasv1.3HjCf49aw3FEBQTF9NcLkMNzSEx0OhbVdiailzNwsBJk1J0H7IePmkgXqbwaErZZd4E"/>
+  <type type="terraform.Tfe" extends="generic.Container" description="A Terraform Enterprise server, organization, workspace and credential.">
+    <property name="org" required="true" category="Terraform Enterprise" description="Organization name" default=""/>
+    <property name="workspace" required="true" category="Terraform Enterprise" description="Workspace name" default=""/>
+    <property name="serverAddress" required="true" category="Terraform Enterprise" description="Server address" default=""/>
+    <property name="accessToken" required="false" category="Terraform Enterprise" kind="string" password="true" description="Access token (optional if credentials are pre-configured on host)" default=""/>
     <property name="clientPath" required="false" category="Terraform Enterprise" description="Path to TFH client" default=""/>
     <property name="createOrder" kind="integer" default="60" hidden="true" />
   </type>
-  
-  <!-- 
-  generic.Container can't be nested with as-containment type CI. 
-  udm.BaseContainer can, but it won't match generic.ExecutedScriptWithDerivedArtifact and this will be caught on startup
-  <type type="terraform.TfhWorkspace" extends="udm.BaseContainer" description="Terraform Enterprise nested environment">
-    <property name="clientHost" kind="ci" referenced-type="terraform.TfhClient" as-containment="true" description="Host with tf-helper CLI binary installed."/>
-  </type>
-  -->
   
 </synthetic>
