@@ -14,7 +14,7 @@ ls ${deployed.file} >> /tmp/_log.txt
 echo '------' >> /tmp/_log.txt
 
 <#if deployed.container.accessToken?has_content> 
-echo '${clientPath}tfh pushconfig ${deployed.file} -org ${deployed.container.org} -hostname ${deployed.container.serverAddress} -name ${deployed.container.workspace} -token ${deployed.container.accessToken} -vcs 0 -message "Configuration for commit: ${deployed.name}"' >> /tmp/_log.txt
+echo '${clientPath}tfh pushconfig ${deployed.file} -org ${deployed.container.org} -hostname ${deployed.container.serverAddress} -name ${deployed.container.workspace} -token ${deployed.container.accessToken} -vcs 0 -message "Configuration for commit: ${deployed.deployedApplication.version.name}"' >> /tmp/_log.txt
 <#else>
-echo '${clientPath}tfh pushconfig ${deployed.file} -org ${deployed.container.org} -hostname ${deployed.container.serverAddress} -name ${deployed.container.workspace} -vcs 0 -message "Configuration for commit: ${deployed.name}"' >> /tmp/_log.txt
+echo '${clientPath}tfh pushconfig ${deployed.file} -org ${deployed.container.org} -hostname ${deployed.container.serverAddress} -name ${deployed.container.workspace} -vcs 0 -message "Configuration for commit: ${deployed.deployedApplication.version.name}"' >> /tmp/_log.txt
 </#if>
